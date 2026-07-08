@@ -4,12 +4,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/teste")
-public class TesteController {
+import com.hailton.reis_portal.security.jwt.JwtService;
 
-    @GetMapping
-    public String teste() {
-        return "Reis Portal funcionando!";
-    }
+@RestController
+@RequestMapping("/teste")
+public class TesteController {
+	   private final JwtService jwtService;
+
+	    public TesteController(JwtService jwtService) {
+	        this.jwtService = jwtService;
+	    }
+
+	    @GetMapping("/token")
+	    public String gerarToken() {
+	        return jwtService.gerarToken("hailton");
+	    }
 }
