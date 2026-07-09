@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.hailton.reis_portal.security.jwt.JwtAuthenticationFilter;
+import org.springframework.security.config.Customizer;
 
 @Configuration
 public class SecurityConfig {
@@ -26,6 +27,7 @@ public class SecurityConfig {
 
         return http
 
+        		.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
 
                 .sessionManagement(session ->
