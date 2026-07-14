@@ -25,6 +25,10 @@ public class AuthService {
     }
 
     public LoginResponse login(LoginRequest request) {
+    	
+    	 System.out.println(">>> Entrou no AuthService.login");
+    	 
+    	 try {
 
         Authentication authentication =
                 authenticationManager.authenticate(
@@ -34,6 +38,8 @@ public class AuthService {
                         )
                 );
 
+        System.out.println(">>> Autenticou");
+        
         CustomUserDetails userDetails =
                 (CustomUserDetails) authentication.getPrincipal();
 
@@ -48,6 +54,10 @@ public class AuthService {
                 usuario.getNome(),
                 usuario.getRole().name()
         );
+    	 } catch (Exception e) {
+    	        e.printStackTrace();
+    	        throw e;
+    	    }
 
     }
 
