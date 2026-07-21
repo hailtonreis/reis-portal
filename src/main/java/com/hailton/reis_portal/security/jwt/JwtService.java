@@ -15,21 +15,26 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-	@Value("${security.jwt.secret}")
-	private String secret;
+    @Value("${security.jwt.secret}")
+    private String secret;
 
-	@Value("${security.jwt.expiration}")
-	private long expiration;
+    @Value("${security.jwt.expiration}")
+    private long expiration;
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+
+        return Keys.hmacShaKeyFor(
+                secret.getBytes(StandardCharsets.UTF_8)
+        );
     }
 
     public String gerarToken(String username) {
 
         Date agora = new Date();
 
-        Date expiracao = new Date(agora.getTime() + expiration);
+        Date expiracao = new Date(
+                agora.getTime() + expiration
+        );
 
         return Jwts.builder()
                 .subject(username)
@@ -41,15 +46,14 @@ public class JwtService {
 
     public String extrairUsername(String token) {
 
-        return extrairClaims(token).getSubject();
-
+        return extrairClaims(token)
+                .getSubject();
     }
 
     public boolean tokenValido(String token, String username) {
 
         return username.equals(extrairUsername(token))
                 && !tokenExpirado(token);
-
     }
 
     private boolean tokenExpirado(String token) {
@@ -57,7 +61,6 @@ public class JwtService {
         return extrairClaims(token)
                 .getExpiration()
                 .before(new Date());
-
     }
 
     private Claims extrairClaims(String token) {
@@ -67,7 +70,5 @@ public class JwtService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-
     }
-
 }
