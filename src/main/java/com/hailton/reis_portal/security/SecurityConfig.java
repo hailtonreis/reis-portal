@@ -38,11 +38,15 @@ public class SecurityConfig {
                     .requestMatchers("/auth/**").permitAll()
 
                     .requestMatchers(HttpMethod.POST, "/usuarios/cadastrar").permitAll()
+                    
+                    .requestMatchers(HttpMethod.POST, "/visitas").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/visitas").permitAll()
 
                     .requestMatchers(
                             "/swagger-ui/**",
                             "/swagger-ui.html",
-                            "/v3/api-docs/**"
+                            "/v3/api-docs/**",
+                            "/ai/**"
                     ).permitAll()
 
                     .anyRequest().authenticated()
