@@ -17,8 +17,9 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-               // "https://hailtonreis.tech"
-        		"http://localhost:4200"
+               "https://hailtonreis.tech",
+               "https://www.hailtonreis.tech",
+               "http://localhost:4200"
         ));
 
         configuration.setAllowedMethods(List.of(
